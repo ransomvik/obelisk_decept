@@ -1,0 +1,10 @@
+[Unit]
+Description=Obelisk Decept Service
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python /opt/obelisk_decept/odlauncher.py
+
+[Install]
+WantedBy=multi-user.target

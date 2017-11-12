@@ -1,0 +1,119 @@
+2017-10-15 20:19:28,905 - decept - INFO - Starting program.
+2017-10-15 20:19:28,905 - decept - INFO - 
+   *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
+      Optiv Decept Version 1.40
+      Author: Derek Arnold Year 2017
+      Optiv Security
+   *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
+2017-10-15 20:19:28,906 - decept - INFO - Binding to ports in 30 seconds.
+2017-10-15 20:19:28,906 - decept - INFO - This decept system IP address is: 172.31.9.227.
+2017-10-15 20:20:21,652 - decept - INFO - Starting program.
+2017-10-15 20:20:21,652 - decept - INFO - 
+   *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
+      Optiv Decept Version 1.40
+      Author: Derek Arnold Year 2017
+      Optiv Security
+   *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*
+2017-10-15 20:20:21,652 - decept - INFO - Binding to ports in 30 seconds.
+2017-10-15 20:20:21,652 - decept - INFO - This decept system IP address is: 172.31.9.227.
+2017-10-15 20:20:52,664 - decept - INFO - Attempting to bind to tcp port: 20
+2017-10-15 20:20:52,664 - decept - INFO - Successfully bound to tcp port: 20
+2017-10-15 20:20:53,665 - decept - INFO - Attempting to bind to tcp port: 21
+2017-10-15 20:20:53,665 - decept - INFO - Successfully bound to tcp port: 21
+2017-10-15 20:20:54,667 - decept - INFO - Attempting to bind to tcp port: 22
+2017-10-15 20:20:54,667 - decept - INFO - Successfully bound to tcp port: 22
+2017-10-15 20:20:55,667 - decept - INFO - Attempting to bind to tcp port: 23
+2017-10-15 20:20:55,668 - decept - INFO - Successfully bound to tcp port: 23
+2017-10-15 20:20:56,669 - decept - INFO - Attempting to bind to tcp port: 25
+2017-10-15 20:20:56,670 - decept - WARNING - Could not bind to tcp port 25 Error Code : 98 Message Address already in use
+2017-10-15 20:20:57,671 - decept - INFO - Attempting to bind to tcp port: 53
+2017-10-15 20:20:57,671 - decept - INFO - Successfully bound to tcp port: 53
+2017-10-15 20:20:58,672 - decept - INFO - Attempting to bind to tcp port: 69
+2017-10-15 20:20:58,672 - decept - INFO - Successfully bound to tcp port: 69
+2017-10-15 20:20:59,673 - decept - INFO - Attempting to bind to tcp port: 80
+2017-10-15 20:20:59,673 - decept - INFO - Successfully bound to tcp port: 80
+2017-10-15 20:21:00,674 - decept - INFO - Attempting to bind to tcp port: 110
+2017-10-15 20:21:00,675 - decept - INFO - Successfully bound to tcp port: 110
+2017-10-15 20:21:01,676 - decept - INFO - Attempting to bind to tcp port: 118
+2017-10-15 20:21:01,676 - decept - INFO - Successfully bound to tcp port: 118
+2017-10-15 20:21:02,676 - decept - INFO - Attempting to bind to tcp port: 137
+2017-10-15 20:21:02,677 - decept - INFO - Successfully bound to tcp port: 137
+2017-10-15 20:21:03,679 - decept - INFO - Attempting to bind to tcp port: 139
+2017-10-15 20:21:03,679 - decept - INFO - Successfully bound to tcp port: 139
+2017-10-15 20:21:04,680 - decept - INFO - Attempting to bind to tcp port: 143
+2017-10-15 20:21:04,681 - decept - INFO - Successfully bound to tcp port: 143
+2017-10-15 20:21:05,682 - decept - INFO - Attempting to bind to tcp port: 194
+2017-10-15 20:21:05,682 - decept - INFO - Successfully bound to tcp port: 194
+2017-10-15 20:21:06,683 - decept - INFO - Attempting to bind to tcp port: 389
+2017-10-15 20:21:06,684 - decept - INFO - Successfully bound to tcp port: 389
+2017-10-15 20:21:07,685 - decept - INFO - Attempting to bind to tcp port: 443
+2017-10-15 20:21:07,685 - decept - INFO - Successfully bound to tcp port: 443
+2017-10-15 20:21:08,687 - decept - INFO - Attempting to bind to tcp port: 445
+2017-10-15 20:21:08,687 - decept - INFO - Successfully bound to tcp port: 445
+2017-10-15 20:21:09,688 - decept - INFO - Attempting to bind to tcp port: 465
+2017-10-15 20:21:09,688 - decept - INFO - Successfully bound to tcp port: 465
+2017-10-15 20:21:10,690 - decept - INFO - Attempting to bind to tcp port: 514
+2017-10-15 20:21:10,690 - decept - INFO - Successfully bound to tcp port: 514
+2017-10-15 20:21:11,691 - decept - INFO - Attempting to bind to tcp port: 587
+2017-10-15 20:21:11,691 - decept - INFO - Successfully bound to tcp port: 587
+2017-10-15 20:21:12,693 - decept - INFO - Attempting to bind to tcp port: 636
+2017-10-15 20:21:12,693 - decept - INFO - Successfully bound to tcp port: 636
+2017-10-15 20:21:13,694 - decept - INFO - Attempting to bind to tcp port: 993
+2017-10-15 20:21:13,695 - decept - INFO - Successfully bound to tcp port: 993
+2017-10-15 20:21:14,696 - decept - INFO - Attempting to bind to tcp port: 1080
+2017-10-15 20:21:14,696 - decept - INFO - Successfully bound to tcp port: 1080
+2017-10-15 20:21:15,697 - decept - INFO - Attempting to bind to tcp port: 1194
+2017-10-15 20:21:15,697 - decept - INFO - Successfully bound to tcp port: 1194
+2017-10-15 20:21:16,699 - decept - INFO - Attempting to bind to tcp port: 1433
+2017-10-15 20:21:16,699 - decept - INFO - Successfully bound to tcp port: 1433
+2017-10-15 20:21:17,700 - decept - INFO - Attempting to bind to tcp port: 1604
+2017-10-15 20:21:17,700 - decept - INFO - Successfully bound to tcp port: 1604
+2017-10-15 20:21:18,701 - decept - INFO - Attempting to bind to tcp port: 1723
+2017-10-15 20:21:18,701 - decept - INFO - Successfully bound to tcp port: 1723
+2017-10-15 20:21:19,703 - decept - INFO - Attempting to bind to tcp port: 3128
+2017-10-15 20:21:19,703 - decept - INFO - Successfully bound to tcp port: 3128
+2017-10-15 20:21:20,704 - decept - INFO - Attempting to bind to tcp port: 3306
+2017-10-15 20:21:20,705 - decept - INFO - Successfully bound to tcp port: 3306
+2017-10-15 20:21:21,706 - decept - INFO - Attempting to bind to tcp port: 3389
+2017-10-15 20:21:21,706 - decept - INFO - Successfully bound to tcp port: 3389
+2017-10-15 20:21:22,707 - decept - INFO - Attempting to bind to tcp port: 5900
+2017-10-15 20:21:22,708 - decept - INFO - Successfully bound to tcp port: 5900
+2017-10-15 20:21:23,709 - decept - INFO - Attempting to bind to tcp port: 6000
+2017-10-15 20:21:23,709 - decept - INFO - Successfully bound to tcp port: 6000
+2017-10-15 20:21:24,710 - decept - INFO - Attempting to bind to tcp port: 8080
+2017-10-15 20:21:24,711 - decept - INFO - Successfully bound to tcp port: 8080
+2017-10-15 20:21:25,712 - decept - INFO - Attempting to bind to tcp port: 8888
+2017-10-15 20:21:25,712 - decept - INFO - Successfully bound to tcp port: 8888
+2017-10-15 20:21:25,712 - decept - INFO - Successful tcp port binds: 33, Unsuccessful tcp port binds: 1
+2017-10-15 20:21:26,713 - decept - INFO - Attempting to bind to udp port: 53
+2017-10-15 20:21:26,714 - decept - INFO - Successfully bound to udp port: 53
+2017-10-15 20:21:27,714 - decept - INFO - Attempting to bind to udp port: 115
+2017-10-15 20:21:27,714 - decept - INFO - Successfully bound to udp port: 115
+2017-10-15 20:21:28,715 - decept - INFO - Attempting to bind to udp port: 118
+2017-10-15 20:21:28,715 - decept - INFO - Successfully bound to udp port: 118
+2017-10-15 20:21:29,716 - decept - INFO - Attempting to bind to udp port: 123
+2017-10-15 20:21:29,717 - decept - WARNING - Could not bind to udp port 123 Error Code : 98 Message Address already in use
+2017-10-15 20:21:30,718 - decept - INFO - Attempting to bind to udp port: 137
+2017-10-15 20:21:30,718 - decept - INFO - Successfully bound to udp port: 137
+2017-10-15 20:21:31,719 - decept - INFO - Attempting to bind to udp port: 139
+2017-10-15 20:21:31,720 - decept - INFO - Successfully bound to udp port: 139
+2017-10-15 20:21:32,721 - decept - INFO - Attempting to bind to udp port: 143
+2017-10-15 20:21:32,721 - decept - INFO - Successfully bound to udp port: 143
+2017-10-15 20:21:33,723 - decept - INFO - Attempting to bind to udp port: 389
+2017-10-15 20:21:33,723 - decept - INFO - Successfully bound to udp port: 389
+2017-10-15 20:21:34,724 - decept - INFO - Attempting to bind to udp port: 514
+2017-10-15 20:21:34,724 - decept - INFO - Successfully bound to udp port: 514
+2017-10-15 20:21:35,725 - decept - INFO - Attempting to bind to udp port: 1080
+2017-10-15 20:21:35,726 - decept - INFO - Successfully bound to udp port: 1080
+2017-10-15 20:21:36,727 - decept - INFO - Attempting to bind to udp port: 1194
+2017-10-15 20:21:36,727 - decept - INFO - Successfully bound to udp port: 1194
+2017-10-15 20:21:37,728 - decept - INFO - Attempting to bind to udp port: 1433
+2017-10-15 20:21:37,728 - decept - INFO - Successfully bound to udp port: 1433
+2017-10-15 20:21:38,729 - decept - INFO - Attempting to bind to udp port: 1512
+2017-10-15 20:21:38,729 - decept - INFO - Successfully bound to udp port: 1512
+2017-10-15 20:21:39,731 - decept - INFO - Attempting to bind to udp port: 2049
+2017-10-15 20:21:39,731 - decept - INFO - Successfully bound to udp port: 2049
+2017-10-15 20:21:40,732 - decept - INFO - Attempting to bind to udp port: 3306
+2017-10-15 20:21:40,732 - decept - INFO - Successfully bound to udp port: 3306
+2017-10-15 20:21:40,733 - decept - INFO - Successful udp port binds: 14, Unsuccessful udp port binds: 1
+2017-10-15 20:21:40,733 - decept - INFO - in True loop
