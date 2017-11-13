@@ -12,7 +12,7 @@ Many times, it can take large enterprises hundreds of days to detect security br
 
 A deception system is designed to confuse, misdirect, and delay an attacker by incorporating ambiguity and misinformation. Very few organizations that I have consulted over the last year are using a deception system in their defense in depth model.
 
-Obelisk Decept System, written by myself, is an open source project that monitors for unauthorized and/or malicious activity on your organization’s network. By placing several honeypots that listen on many ports at strategic locations, we can detect early stage attacks. The app can provide increased visibility to potentially malicious activity going on in the organization.
+Obelisk Decept System, written by myself, is an open source project that monitors for unauthorized and/or malicious activity on your organizational network. By placing several honeypots that listen on many ports at strategic locations, we can detect early stage attacks. The app can provide increased visibility to potentially malicious activity going on in the organization.
 
 Once we are collecting data from honeypots, we have the ability to search and correlate data.
 
@@ -23,7 +23,6 @@ I invite you to download and use Obelisk Decept System for free today.
 ## <i class="fa fa-check-circle-o fa-2x" aria-hidden="true"></i> Features
 + Listen on several common tcp ports and report unauthorized activity to the app.
 + Capture keystrokes and network traffic from potentially malicious hosts.
-+ Search and visualization features.
 + Low system requirements and easy install.
 
 ## <i class="fa fa-eye fa-2x" aria-hidden="true"></i> Prerequisites
@@ -46,15 +45,14 @@ I invite you to download and use Obelisk Decept System for free today.
 
 ## <i class="fa fa-cloud-download fa-2x" aria-hidden="true"></i> Download
 
-The app can be downloaded on <i class="fa fa-github fa-3x"></i> <a href="https://github.com/ransomvik/obelisk_decept">GitHub</a> or <a href="../Downloads/obelisk_decept_10.zip">here</a>.
-
+The app can be downloaded on <i class="fa fa-github fa-3x"></i> <a href="https://github.com/ransomvik/obelisk_decept">GitHub</a> 
 
 
 <br><br><br>
 
 ## <i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i> Sample Logs
 
-{% highlight text %}
+```
     TCP Connection #1634 detected: Source: 94.77.209.23:4432 Destination: 64.137.242.189:1433 proto: tcp Severity: medium
     Attempting to receive TCP data. Timeout=10
     Bytes in: 41 Data received: ^^^')U?!'^^^
@@ -70,7 +68,8 @@ The app can be downloaded on <i class="fa fa-github fa-3x"></i> <a href="https:/
     TCP Connection #1638 detected: Source: 66.33.212.121:54601 Destination: 64.137.242.189:5900 proto: tcp Severity: medium
     Attempting to receive TCP data. Timeout=10
     Closing connection.
-{% endhighlight %}
+```
+
 
 
 
@@ -83,7 +82,7 @@ The app can be downloaded on <i class="fa fa-github fa-3x"></i> <a href="https:/
     + `cp /tmp/obelisk_decept.zip /opt`
     + `unzip /opt/obelisk_decept.zip`
 
-{% highlight text %}
+```
 Archive:  obelisk_decept.zip
    creating: obelisk_decept/config/
   inflating: obelisk_decept/config/obelisk_decept.service
@@ -95,13 +94,13 @@ Archive:  obelisk_decept.zip
   inflating: obelisk_decept/logs/obelisk_decept.log
    creating: obelisk_decept/bin/
   inflating: obelisk_decept/bin/obelisk_installer.sh
-{% endhighlight %}
+```
 
 
 + Run obelisk_install.sh in the bin folder.
     + `/bin/sh /opt/obelisk_decept/bin/obelisk_installer.sh`
 
-{% highlight text %}
+```
 bash-4.2# sh obelisk_decept/bin/obelisk_installer.sh
 Copying file: /opt/obelisk_decept/config/obelisk_decept.service to /lib/systemd/system
 ‘/opt/obelisk_decept/config/obelisk_decept.service’ -> ‘/lib/systemd/system/obelisk_decept.service’
@@ -119,12 +118,12 @@ Nov  7 09:09:07 ohon02 systemd: Starting Obelisk Decept Service...
 Nov 07 09:09:06 ohon02.obelisksec.com systemd[1]: Started Obelisk Decept Service.
 Nov 07 09:09:06 ohon02.obelisksec.com systemd[1]: Starting Obelisk Decept Service...
 bash-4.2#
-{% endhighlight %}
+```
 
 + Check to see if the service started, the results should look similar to the following:
    + `systemctl status obelisk_decept`
 
-{% highlight text %}
+```
 ? obelisk_decept.service - My Script Service
    Loaded: loaded (/usr/lib/systemd/system/obelisk_decept.service; enabled; vendor preset: disabled)
    Active: active (running) since Tue 2017-11-07 09:09:06 EST; 6min ago
@@ -134,7 +133,7 @@ bash-4.2#
 
 Nov 07 09:09:06 ohon02.obelisksec.com systemd[1]: Started My Script Service.
 Nov 07 09:09:06 ohon02.obelisksec.com systemd[1]: Starting My Script Service...
-{% endhighlight %}
+```
 
 + Finished.
 
@@ -147,7 +146,7 @@ Nov 07 09:09:06 ohon02.obelisksec.com systemd[1]: Starting My Script Service...
     + `cp /tmp/obelisk_decept.zip /opt`
     + `unzip /opt/obelisk_decept.zip`
 
-{% highlight text %}
+```
 Archive:  obelisk_decept.zip
    creating: obelisk_decept/config/
   inflating: obelisk_decept/config/obelisk_decept.service
@@ -159,12 +158,12 @@ Archive:  obelisk_decept.zip
   inflating: obelisk_decept/logs/obelisk_decept.log
    creating: obelisk_decept/bin/
   inflating: obelisk_decept/bin/obelisk_installer.sh
-{% endhighlight %}
+```
 
 + Run obelisk_install.sh in the bin folder
     + `/bin/sh /opt/obelisk_decept/bin/obelisk_installer_ubuntu.sh`
 
-{% highlight text %}
+```
 root@honeypot:/opt# /bin/sh /opt/obelisk_decept/bin/obelisk_installer_ubuntu.sh
 Copying file: /opt/obelisk_decept/config/obelisk_decept.conf to /etc/init/
 ‘/opt/obelisk_decept/config/obelisk_decept.conf’ -> ‘/etc/init/obelisk_decept.conf’
@@ -182,16 +181,16 @@ obelisk_decept start/running, process 2724
 2017-11-08 18:48:13,122 - decept - INFO - Attempting to receive TCP data. Timeout=10
 
 obelisk_decept start/running, process 2724
-{% endhighlight %}
+```
 
 
 + Check to see if the service started, the results should look similar to the following:
    + `service obelisksec status`
 
-{% highlight text %}
+```
 root@honeypot:/opt# service obelisk_decept status
 obelisk_decept start/running, process 2724
-{% endhighlight %}
+```
 
 + Finished.
 
@@ -203,10 +202,3 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 ### About Derek Arnold
 Derek Arnold has spent the last 13 years securing large retail, medical device, and insurance companies. He has worked on large, diverse enterprises in the Fortune 500. His key specialties include security operations, threat intelligence, physical security and SIEM. He helps organizations solve their unique security challenges using Splunk Enterprise, security orchestration and automation, and security operations.
-
-
-<img src="/images/derek_arnold.png" width="150" height="200">
-<br><br>
-+ <i class="fa fa-twitter fa-3x" aria-hidden="true"></i> <a href="https://twitter.com/derekparnold">DerekPArnold</a>
-+ <i class="fa fa-linkedin fa-3x" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/derekarnold/"> derekarnold</a>
-+ <i class="fa fa-github fa-3x" aria-hidden="true"></i> <a href="https://github.com/ransomvik"> ransomvik</a>
