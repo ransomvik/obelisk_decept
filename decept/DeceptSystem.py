@@ -2,21 +2,21 @@
 # -*- coding: utf-8 -*-
 ##########################################################################################################################
 ##
-##          Script:         optiv_decept.py
+##          Script:         obelisk_decept.py
 ##
 ##          Language:       Python
 ##
-##          Version:        1.40
+##          Version:        1.41
 ##
 ##          Original Date:  07-24-2016
 ##
 ##          Author:         Derek Arnold
 ##
-##          Company:        Optiv Security
+##          Company:        Obelisk Security
 ##
 ##          Purpose:        Listen on multiple network ports and write data to a file to detect indicators of compromise.
 ##
-##          Syntax:         python ./optiv_decept.py
+##          Syntax:         python ./obelisk_decept.py
 ##
 ##          Copyright (C):  2016 Derek Arnold (ransomvik)
 ##
@@ -36,6 +36,7 @@
 ##                          02-06-2017 DPA      Added a udp handler
 ##                          02-18-2017 DPA      Added an SSH/telnet username and password collector
 ##                          02-22-2017 DPA      Added CEF Logging as an option
+##                          11-29-2017 DPA      Changed to Linux daemon
 ##
 ##########################################################################################################################
 
@@ -55,14 +56,14 @@ class DeceptSystem:
 
     AUTHOR = 'Derek Arnold'
     VERSION = '1.40'
-    ORGANIZATION = 'Optiv Security'
-    PROGRAM_NAME = 'Optiv Decept'
-    YEAR = '2017'
+    ORGANIZATION = 'Obelisk Security'
+    PROGRAM_NAME = 'Obelisk Decept'
+    YEAR = '2018'
 
     enable_cef_logging = False
 
-    decept_home = '/opt/optiv_decept/logs'
-    log_name = 'optiv_decept.log'
+    decept_home = '/opt/obelisk_decept/logs'
+    log_name = 'obelisk_decept.log'
 
     #log_path = os.path.join(decept_home, 'logs', log_name)
     log_path = decept_home + '/' + log_name
@@ -259,10 +260,10 @@ class DeceptSystem:
 
         print "in run()"
         AUTHOR = 'Derek Arnold'
-        VERSION = '1.40'
-        ORGANIZATION = 'Optiv Security'
-        PROGRAM_NAME = 'Optiv Decept'
-        YEAR = '2017'
+        VERSION = '1.41'
+        ORGANIZATION = 'Obelisk Security'
+        PROGRAM_NAME = 'Obelisk Decept'
+        YEAR = '2018'
         #if not os.path.exists(self.mylogdir):
         #    os.mkdir(self.mylogdir)
 

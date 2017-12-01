@@ -15,10 +15,10 @@ if __name__ == '__main__':
     start_here = "start_here"
 
     AUTHOR = 'Derek Arnold'
-    VERSION = '1.40'
+    VERSION = '1.41'
     ORGANIZATION = 'Obelisk Security'
     PROGRAM_NAME = 'Obelisk Decept'
-    YEAR = '2017'
+    YEAR = '2018'
 
     enable_cef_logging = False
 
