@@ -194,6 +194,22 @@ obelisk_decept start/running, process 2724
 
 + Finished.
 
+## Run in Docker
++ Download this repository
++ Build the docker image
++ Run the image
+
+```
+Sample Commands:
+
+git clone /url/to/repository
+cd obelisk_decept
+docker build -t obelisk .
+docker run docker run -p 2020:20 -p 2021:21 -p 2023:23 -p 2025:25 -p 2053:53 -p 2053:53/udp obelisk
+```
+<i>Note: Run command is a sample. More ports are supported by the app.</i>
+
+
 ## <i class="fa fa-wrench fa-3x" aria-hidden="true"></i> License
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. See http://www.gnu.org/licenses/

@@ -21,6 +21,7 @@ if __name__ == '__main__':
     YEAR = '2018'
 
     enable_cef_logging = False
+    enable_stdout_logging = True
 
     decept_home = '/opt/obelisk_decept/logs'
     log_name = 'obelisk_decept.log'
@@ -53,10 +54,10 @@ if __name__ == '__main__':
     try:
         print "starting"
      #   ods = DeceptSystem.DeceptSystem(num_tcp_connections=0, num_udp_connections=0,
-#				 done=False,
-#				 num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,
-#				 num_bad_udp_binds = 0,dest_portnum = '0')
-        ods = DeceptSystem.DeceptSystem(num_tcp_connections=0, num_udp_connections=0,mylogdir=log_path, mytcp_port_list=tcp_port_list,myudp_port_list=udp_port_list,done=False, my_decept_system_ip_address=this_decept_system_ip_address,num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,num_bad_udp_binds = 0,dest_portnum = '0')
+#                done=False,
+#                num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,
+#                num_bad_udp_binds = 0,dest_portnum = '0')
+        ods = DeceptSystem.DeceptSystem(num_tcp_connections=0, num_udp_connections=0,mylogdir=log_path, mytcp_port_list=tcp_port_list,myudp_port_list=udp_port_list,done=False, my_decept_system_ip_address=this_decept_system_ip_address,num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,num_bad_udp_binds = 0,dest_portnum = '0',stdout_logging = enable_stdout_logging)
 
         print "done"
 
