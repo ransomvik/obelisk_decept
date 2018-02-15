@@ -356,13 +356,13 @@ class DeceptSystem:
                         connection, address = conn.accept()
                         print "debug: address=" + str(address) + " connection=" + str(connection.getsockname())
 
-                    self.parse_tcp_connection(address,connection.getsockname())
-                    if tcp_item.getsockname()[1]:
-                        if len(str(tcp_item.getsockname()[1])) > 0:
-                            dest_portnum = str(tcp_item.getsockname()[1])
-                            self.handle_tcp_accept(connection,dest_portnum)
-                            print "debug: close conn"
-                connection.close()
+                        self.parse_tcp_connection(address,connection.getsockname())
+                        if tcp_item.getsockname()[1]:
+                            if len(str(tcp_item.getsockname()[1])) > 0:
+                                dest_portnum = str(tcp_item.getsockname()[1])
+                        self.handle_tcp_accept(connection,dest_portnum)
+                        print "debug: close conn"
+                        connection.close()
 
             try:
                 inputready, outputready, exceptready = select.select(self.udpservers, [], [],10)
@@ -375,7 +375,7 @@ class DeceptSystem:
                         if udp_item.getsockname()[1]:
                             if len(str(udp_item.getsockname()[1])) > 0:
                                 dest_portnum = str(udp_item.getsockname()[1])
-                    self.handle_udp_accept(conn,dest_portnum)
+                        self.handle_udp_accept(conn,dest_portnum)
 
         return 0
         #Closes this program
