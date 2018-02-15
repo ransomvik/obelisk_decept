@@ -342,7 +342,7 @@ class DeceptSystem:
         self.logger.info("Successful udp port binds: " + str(self.num_good_udp_binds) + ", Unsuccessful udp port binds: " + str(self.num_bad_udp_binds))
 
         while True:
-            self.logger.info("in True loop")
+            #self.logger.info("in True loop")
             try:
                 inputready, outputready, exceptready = select.select(self.tcpservers, [], [],10)
             except select.error, e:
