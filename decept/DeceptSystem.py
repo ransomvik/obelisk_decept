@@ -304,7 +304,6 @@ class DeceptSystem:
             self.logger.info("Attempting to bind to tcp port: " + str(port))
 
             try:
-
                 self.tcpservers.append(socket.socket(socket.AF_INET, socket.SOCK_STREAM))
                 self.tcpservers[-1].setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 self.tcpservers[-1].bind(ds)
@@ -323,34 +322,32 @@ class DeceptSystem:
 
         for port in self.udp_port_list:
             time.sleep(1)
+            ds = ('',port)
+            self.logger.info("Attempting to bind to udp port: " + str(port))
 
-        ds = ('',port)
-        self.logger.info("Attempting to bind to udp port: " + str(port))
+            try:
+                self.udpservers.append(socket.socket(socket.AF_INET, socket.SOCK_DGRAM))
+                self.udpservers[-1].setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                self.udpservers[-1].bind(ds)
+                self.logger.info('Successfully bound to udp port: ' + str(port))
+                self.num_good_udp_binds += 1
 
-        try:
-            self.udpservers.append(socket.socket(socket.AF_INET, socket.SOCK_DGRAM))
-            self.udpservers[-1].setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            self.udpservers[-1].bind(ds)
-            self.logger.info('Successfully bound to udp port: ' + str(port))
-            self.num_good_udp_binds += 1
-
-        except socket.error , msg:
-            self.logger.warn( 'Could not bind to udp port ' + str(port) + " Error Code : " + str(msg[0]) + " Message " + msg[1])
-            self.num_bad_udp_binds += 1
-            if self.udpservers[-1]:
-                self.udpservers[-1].close()
-                self.udpservers = self.udpservers[:-1]
+            except socket.error , msg:
+                self.logger.warn( 'Could not bind to udp port ' + str(port) + " Error Code : " + str(msg[0]) + " Message " + msg[1])
+                self.num_bad_udp_binds += 1
+                if self.udpservers[-1]:
+                    self.udpservers[-1].close()
+                    self.udpservers = self.udpservers[:-1]
 
         self.logger.info("Successful udp port binds: " + str(self.num_good_udp_binds) + ", Unsuccessful udp port binds: " + str(self.num_bad_udp_binds))
 
         while True:
-                #self.logger.info("in True loop")
+            self.logger.info("in True loop")
             try:
                 inputready, outputready, exceptready = select.select(self.tcpservers, [], [],10)
             except select.error, e:
                 self.logger.warn("Select error: " + e)
-
-                       #logger.info("done with select statement")
+                #logger.info("done with select statement")
 
             for conn in inputready:
                 for tcp_item in self.tcpservers:
@@ -380,10 +377,9 @@ class DeceptSystem:
                                 dest_portnum = str(udp_item.getsockname()[1])
                     self.handle_udp_accept(conn,dest_portnum)
 
-            return 0
-
-
+        return 0
         #Closes this program
+ 
     def __del___(self):
         #global tcpservers
         #global udpservers
