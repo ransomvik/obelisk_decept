@@ -61,6 +61,7 @@ class DeceptSystem:
     YEAR = '2018'
 
     enable_cef_logging = False
+    enable_stdout_logging = False
 
     decept_home = '/opt/obelisk_decept/logs'
     log_name = 'obelisk_decept.log'
@@ -87,24 +88,25 @@ class DeceptSystem:
 
 
     #def __init__(self, num_tcp_connections=0, num_udp_connections=0,mylogdir=log_path, mytcp_port_list=tcp_port_list,myudp_port_list=udp_port_list,done=False, my_decept_system_ip_address=this_decept_system_ip_address,num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,num_bad_udp_binds = 0,dest_portnum = '0',tcpservers=tcpservers,udpservers=udpservers):
-    def __init__(self, num_tcp_connections=0, num_udp_connections=0,mylogdir=log_path, mytcp_port_list=tcp_port_list,myudp_port_list=udp_port_list,done=False, my_decept_system_ip_address=this_decept_system_ip_address,num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,num_bad_udp_binds = 0,dest_portnum = '0'):
+    def __init__(self, num_tcp_connections=0, num_udp_connections=0,mylogdir=log_path, mytcp_port_list=tcp_port_list,myudp_port_list=udp_port_list,done=False, my_decept_system_ip_address=this_decept_system_ip_address,num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,num_bad_udp_binds = 0,dest_portnum = '0',stdout_logging=False):
         self.num_tcp_connections = num_tcp_connections
         self.num_udp_connections = num_udp_connections
         self.mylogdir=mylogdir
         self.mytcp_port_list=mytcp_port_list
         self.myudp_port_list=myudp_port_list
         self.done=done
-	self.my_decept_system_ip_address=my_decept_system_ip_address
-	self.num_good_tcp_binds=num_good_tcp_binds
-	self.num_good_udp_binds=num_good_udp_binds
-	self.num_bad_tcp_binds=num_bad_tcp_binds
-	self.num_bad_udp_binds=num_bad_udp_binds
-	self.dest_portnum=dest_portnum
-	#self.tcpservers=tcpservers
-	#self.udpservers=udpservers
+        self.my_decept_system_ip_address=my_decept_system_ip_address
+        self.num_good_tcp_binds=num_good_tcp_binds
+        self.num_good_udp_binds=num_good_udp_binds
+        self.num_bad_tcp_binds=num_bad_tcp_binds
+        self.num_bad_udp_binds=num_bad_udp_binds
+        self.dest_portnum=dest_portnum
+        #self.tcpservers=tcpservers
+        #self.udpservers=udpservers
         self.tcpservers = []
         self.udpservers = []
-	print "in init()"
+        self.enable_stdout_logging = stdout_logging
+        print "in init()"
         self.logger=logging.getLogger('decept')
         self.run()
 
@@ -144,120 +146,118 @@ class DeceptSystem:
 
     def handle_udp_accept(self,conn,dest_portnum,timeout=10):
 
-			#global num_udp_connections
-	self.num_udp_connections+=1
+        #global num_udp_connections
+        self.num_udp_connections+=1
 
-    	conn.setblocking(0)
-    	data=''
-    	begin=time.time()
-    	total_data=[]
-    	bytes_in = 0
+        conn.setblocking(0)
+        data=''
+        begin=time.time()
+        total_data=[]
+        bytes_in = 0
 
-	while True:
-	    if total_data and time.time()-begin>timeout:
-    		break
-    	    elif time.time()-begin>timeout:
-		break
-	    try:
-		(client_data, client_address) = conn.recvfrom(1024)
-		self.logger.info('UDP Connection #' + str(self.num_udp_connections) + " detected: Source: " + str(client_address[0]) + ":" + str(client_address[1]) +
-			    " Destination: " + self.my_decept_system_ip_address + ":" + str(dest_portnum) + " proto: udp Severity: medium")
+        while True:
+            if total_data and time.time()-begin>timeout:
+                break
+            elif time.time()-begin>timeout:
+                break
+            try:
+                (client_data, client_address) = conn.recvfrom(1024)
+                self.logger.info('UDP Connection #' + str(self.num_udp_connections) + " detected: Source: " + str(client_address[0]) + ":" + str(client_address[1]) +
+                        " Destination: " + self.my_decept_system_ip_address + ":" + str(dest_portnum) + " proto: udp Severity: medium")
 
-		client_data = client_data.replace("\n", " ")
-		bytes_in = len(client_data)
-		self.logger.info("Bytes in: " + str(bytes_in) + " Data received: ^^^\'"+str(client_data)+"\'^^^")
+                client_data = client_data.replace("\n", " ")
+                bytes_in = len(client_data)
+                self.logger.info("Bytes in: " + str(bytes_in) + " Data received: ^^^\'"+str(client_data)+"\'^^^")
 
-		begin=time.time()
+                begin=time.time()
 
-		break
-	    except:
-		time.sleep(0.5)
+                break
+            except:
+                time.sleep(0.5)
 
-	    return 0
+        return 0
 
 
-		#Handle an incoming TCP connection and log the payload
+        #Handle an incoming TCP connection and log the payload
     def handle_tcp_accept(self,conn,dest_portnum,timeout=10):
+        self.logger.info('Attempting to receive TCP data. Timeout=' + str(timeout))
 
-	self.logger.info('Attempting to receive TCP data. Timeout=' + str(timeout))
+        sleep_interval = int(0.5)
 
-	sleep_interval = int(0.5)
+        conn.setblocking(0)
+        bytes_in = int(0)
+        total_data=[]
+        data=''
+        begin=time.time()
+        wait_for_response = False
+        first_level_response = False
+        second_level_response = False
 
-	conn.setblocking(0)
-	bytes_in = int(0)
-	total_data=[]
-	data=''
-	begin=time.time()
-	wait_for_response = False
-	first_level_response = False
-	second_level_response = False
-
-	while 1:
-			#if you got some data, then break after wait sec
-	    if total_data and time.time()-begin>timeout:
-		break
-			#if you got no data at all, wait a little longer
-	    elif time.time()-begin>timeout:
-		break
-	    try:
+        while 1:
+                #if you got some data, then break after wait sec
+            if total_data and time.time()-begin>timeout:
+                break
+                #if you got no data at all, wait a little longer
+            elif time.time()-begin>timeout:
+                break
+            try:
                 data2=''
-		if (int(dest_portnum)==22 or int(dest_portnum)==23) and wait_for_response is False:
-		    wait_for_response = True
+                if (int(dest_portnum)==22 or int(dest_portnum)==23) and wait_for_response is False:
+                    wait_for_response = True
 
-		    sleep_interval = int(15)
-		    timeout=60
-					#handle_port_22(conn)
+                    sleep_interval = int(15)
+                    timeout=60
+                            #handle_port_22(conn)
 
-		    message = "\nlogin as: "
-		    conn.send(message)
-		    #time.sleep(15)
-		    data2 = conn.recv(25)
-		    data2 = data2.replace("\n", "")
-		    data += data2 + "\n"
-		    time.sleep(15)
+                    message = "\nlogin as: "
+                    conn.send(message)
+                    #time.sleep(15)
+                    data2 = conn.recv(25)
+                    data2 = data2.replace("\n", "")
+                    data += data2 + "\n"
+                    time.sleep(15)
 
-		    #if data2 and first_level_response is False:
+                    #if data2 and first_level_response is False:
                     if data2:
-			self.logger.info("received username: " + str(data2))
-			bytes_in += len(data2)
-		        first_level_response = True
-			message = str(data2) + "@" + self.my_decept_system_ip_address + "'s password: "
+                        self.logger.info("received username: " + str(data2))
+                        bytes_in += len(data2)
+                        first_level_response = True
+                        message = str(data2) + "@" + self.my_decept_system_ip_address + "'s password: "
 
-			conn.send(message)
-			time.sleep(15)
-			data3=conn.recv(25)
-			data3 = data3.replace("\n", "")
-		        data += data3 + "\n"
-			time.sleep(15)
+                        conn.send(message)
+                        time.sleep(15)
+                        data3=conn.recv(25)
+                        data3 = data3.replace("\n", "")
+                        data += data3 + "\n"
+                        time.sleep(15)
 
-			if data3 and second_level_response is False:
-			    self.logger.info("received password: " + data3 )
-			    bytes_in += len(data3)
-			    second_level_response = True
-			    message = "Permission denied, please try again.\n"
+                    if data3 and second_level_response is False:
+                        self.logger.info("received password: " + data3 )
+                        bytes_in += len(data3)
+                        second_level_response = True
+                        message = "Permission denied, please try again.\n"
 
-			    conn.send(message)
-
-
-		else:
-		    data=conn.recv(1024)
-		    bytes_in = len(data)
-
-		if (bytes_in > 1):
-		    data = data.replace("\n", " ")
-		    self.logger.info("Bytes in: " +str(bytes_in)+ " Data received: ^^^\'"+str(data)+"\'^^^")
-		    total_data.append(data)
-		    begin=time.time()
-	    except:
-	        time.sleep(0.5)
+                        conn.send(message)
 
 
-	self.logger.info("Closing connection.")
+                else:
+                    data=conn.recv(1024)
+                    bytes_in = len(data)
 
-	return 0
+                if (bytes_in > 1):
+                    data = data.replace("\n", " ")
+                    self.logger.info("Bytes in: " +str(bytes_in)+ " Data received: ^^^\'"+str(data)+"\'^^^")
+                    total_data.append(data)
+                    begin=time.time()
+            except:
+                time.sleep(0.5)
+
+
+        self.logger.info("Closing connection.")
+
+        return 0
 
     def run(self):
-
         print "in run()"
         AUTHOR = 'Derek Arnold'
         VERSION = '1.41'
@@ -274,162 +274,155 @@ class DeceptSystem:
 
         self.logger.addHandler(handler)
 
-	self.logger.setLevel(logging.INFO)
-
-	self.logger.info('Starting program.')
-
-    	self.logger.info("\n"+
-			"   *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*\n"+
-			"      "+PROGRAM_NAME+" Version " + str(VERSION)+ "\n"
-			"      Author: "+AUTHOR+" Year " + str(YEAR) + "\n"
-			"      "+ORGANIZATION +"\n"+
-			"   *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*")
+        if self.enable_stdout_logging:
+            second_handler = logging.StreamHandler(sys.stdout)
+            second_handler.setLevel(logging.DEBUG)
+            second_handler.setFormatter(formatter)
+            self.logger.addHandler(second_handler)
 
 
-    	self.logger.info("Binding to ports in 30 seconds.")
-    	self.logger.info("This decept system IP address is: " + self.my_decept_system_ip_address + ".")
-    	time.sleep(30)
+        self.logger.setLevel(logging.INFO)
+        self.logger.info('Starting program.')
+
+        self.logger.info("\n"+
+        "   *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*\n"+
+        "      "+PROGRAM_NAME+" Version " + str(VERSION)+ "\n"
+        "      Author: "+AUTHOR+" Year " + str(YEAR) + "\n"
+        "      "+ORGANIZATION +"\n"+
+        "   *_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*")
 
 
-	for port in self.mytcp_port_list:
-	    time.sleep(1)
+        self.logger.info("Binding to ports in 30 seconds.")
+        self.logger.info("This decept system IP address is: " + self.my_decept_system_ip_address + ".")
+        time.sleep(30)
 
-	    ds = ("0.0.0.0", port)
-	    self.logger.info("Attempting to bind to tcp port: " + str(port))
 
-	    try:
+        for port in self.mytcp_port_list:
+            time.sleep(1)
 
-	        self.tcpservers.append(socket.socket(socket.AF_INET, socket.SOCK_STREAM))
-		self.tcpservers[-1].setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-		self.tcpservers[-1].bind(ds)
-	    	self.tcpservers[-1].listen(10)
-	    	self.logger.info('Successfully bound to tcp port: ' + str(port))
-		self.num_good_tcp_binds += 1
+            ds = ("0.0.0.0", port)
+            self.logger.info("Attempting to bind to tcp port: " + str(port))
 
-	    except socket.error , msg:
-		self.logger.warn( 'Could not bind to tcp port ' + str(port) + " Error Code : " + str(msg[0]) + " Message " + msg[1])
-		self.num_bad_tcp_binds += 1
-		if self.tcpservers[-1]:
-		    self.tcpservers[-1].close()
-		    self.tcpservers = self.tcpservers[:-1]
+            try:
+                self.tcpservers.append(socket.socket(socket.AF_INET, socket.SOCK_STREAM))
+                self.tcpservers[-1].setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                self.tcpservers[-1].bind(ds)
+                self.tcpservers[-1].listen(10)
+                self.logger.info('Successfully bound to tcp port: ' + str(port))
+                self.num_good_tcp_binds += 1
 
-	self.logger.info("Successful tcp port binds: " + str(self.num_good_tcp_binds) + ", Unsuccessful tcp port binds: " + str(self.num_bad_tcp_binds))
+            except socket.error , msg:
+                self.logger.warn( 'Could not bind to tcp port ' + str(port) + " Error Code : " + str(msg[0]) + " Message " + msg[1])
+                self.num_bad_tcp_binds += 1
+                if self.tcpservers[-1]:
+                    self.tcpservers[-1].close()
+                    self.tcpservers = self.tcpservers[:-1]
+
+        self.logger.info("Successful tcp port binds: " + str(self.num_good_tcp_binds) + ", Unsuccessful tcp port binds: " + str(self.num_bad_tcp_binds))
 
         for port in self.udp_port_list:
-    	    time.sleep(1)
+            time.sleep(1)
+            ds = ('',port)
+            self.logger.info("Attempting to bind to udp port: " + str(port))
 
-	    ds = ('',port)
-	    self.logger.info("Attempting to bind to udp port: " + str(port))
+            try:
+                self.udpservers.append(socket.socket(socket.AF_INET, socket.SOCK_DGRAM))
+                self.udpservers[-1].setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                self.udpservers[-1].bind(ds)
+                self.logger.info('Successfully bound to udp port: ' + str(port))
+                self.num_good_udp_binds += 1
 
-	    try:
-	        self.udpservers.append(socket.socket(socket.AF_INET, socket.SOCK_DGRAM))
-	        self.udpservers[-1].setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-	        self.udpservers[-1].bind(ds)
-	        self.logger.info('Successfully bound to udp port: ' + str(port))
-	        self.num_good_udp_binds += 1
+            except socket.error , msg:
+                self.logger.warn( 'Could not bind to udp port ' + str(port) + " Error Code : " + str(msg[0]) + " Message " + msg[1])
+                self.num_bad_udp_binds += 1
+                if self.udpservers[-1]:
+                    self.udpservers[-1].close()
+                    self.udpservers = self.udpservers[:-1]
 
-	    except socket.error , msg:
-	        self.logger.warn( 'Could not bind to udp port ' + str(port) + " Error Code : " + str(msg[0]) + " Message " + msg[1])
-	        self.num_bad_udp_binds += 1
-	        if self.udpservers[-1]:
-	            self.udpservers[-1].close()
-	            self.udpservers = self.udpservers[:-1]
+        self.logger.info("Successful udp port binds: " + str(self.num_good_udp_binds) + ", Unsuccessful udp port binds: " + str(self.num_bad_udp_binds))
 
-	self.logger.info("Successful udp port binds: " + str(self.num_good_udp_binds) + ", Unsuccessful udp port binds: " + str(self.num_bad_udp_binds))
-
-	while True:
+        while True:
             #self.logger.info("in True loop")
-	    try:
-	    	inputready, outputready, exceptready = select.select(self.tcpservers, [], [],10)
-	    except select.error, e:
-	        self.logger.warn("Select error: " + e)
+            try:
+                inputready, outputready, exceptready = select.select(self.tcpservers, [], [],10)
+            except select.error, e:
+                self.logger.warn("Select error: " + e)
+                #logger.info("done with select statement")
 
-				   #logger.info("done with select statement")
-
-	    for conn in inputready:
-	        for tcp_item in self.tcpservers:
-		    if conn == tcp_item:
-							#logger.info("in tcp try loop")
-			connection, address = conn.accept()
-
+            for conn in inputready:
+                for tcp_item in self.tcpservers:
+                    if conn == tcp_item:
+                        #logger.info("in tcp try loop")
+                        connection, address = conn.accept()
                         print "debug: address=" + str(address) + " connection=" + str(connection.getsockname())
 
-			self.parse_tcp_connection(address,connection.getsockname())
-		    	if tcp_item.getsockname()[1]:
-			    if len(str(tcp_item.getsockname()[1])) > 0:
-			      	dest_portnum = str(tcp_item.getsockname()[1])
-			self.handle_tcp_accept(connection,dest_portnum)
+                        self.parse_tcp_connection(address,connection.getsockname())
+                        if tcp_item.getsockname()[1]:
+                            if len(str(tcp_item.getsockname()[1])) > 0:
+                                dest_portnum = str(tcp_item.getsockname()[1])
+                        self.handle_tcp_accept(connection,dest_portnum)
                         print "debug: close conn"
-			connection.close()
+                        connection.close()
 
-	    try:
-		inputready, outputready, exceptready = select.select(self.udpservers, [], [],10)
-	    except select.error, e:
-		self.logger.warn("Select error: " + e)
+            try:
+                inputready, outputready, exceptready = select.select(self.udpservers, [], [],10)
+            except select.error, e:
+                self.logger.warn("Select error: " + e)
 
-	    for conn in inputready:
-		for udp_item in self.udpservers:
-		    if conn == udp_item:
-
-		    	if udp_item.getsockname()[1]:
-			    if len(str(udp_item.getsockname()[1])) > 0:
-				dest_portnum = str(udp_item.getsockname()[1])
-			self.handle_udp_accept(conn,dest_portnum)
+            for conn in inputready:
+                for udp_item in self.udpservers:
+                    if conn == udp_item:
+                        if udp_item.getsockname()[1]:
+                            if len(str(udp_item.getsockname()[1])) > 0:
+                                dest_portnum = str(udp_item.getsockname()[1])
+                        self.handle_udp_accept(conn,dest_portnum)
 
         return 0
+        #Closes this program
+ 
+    def __del___(self):
+        #global tcpservers
+        #global udpservers
 
+        self.logger.warn('Program is shutting down NOW!')
+        for close_socket in self.tcpservers:
+            self.logger.info("closing a socket in close_program")
+            close_socket.close()
 
-		#Closes this program
-def __del___(self):
-			#global tcpservers
-			#global udpservers
-
-    self.logger.warn('Program is shutting down NOW!')
-    for close_socket in self.tcpservers:
-
-	self.logger.info("closing a socket in close_program")
-
-	close_socket.close()
-
-    for close_socket in self.udpservers:
-	self.logger.info("closing a socket in close_program")
-
-    	close_socket.close()
-
-	self.tcpservers = []
-	self.udpservers = []
-
-    sys.exit(0)
-    return 0
-
-def closeprog(self):
-
-    self.logger.warn('Program is shutting down NOW!')
-    for close_socket in self.tcpservers:
-
-        self.logger.info("closing a socket in close_program")
-
-        close_socket.close()
-
-    for close_socket in self.udpservers:
-        self.logger.info("closing a socket in close_program")
-
-        close_socket.close()
+        for close_socket in self.udpservers:
+            self.logger.info("closing a socket in close_program")
+            close_socket.close()
 
         self.tcpservers = []
         self.udpservers = []
 
-    sys.exit(0)
-    return 0
+        sys.exit(0)
+        return 0
 
-#############
+    def closeprog(self):
+
+        self.logger.warn('Program is shutting down NOW!')
+        for close_socket in self.tcpservers:
+            self.logger.info("closing a socket in close_program")
+            close_socket.close()
+
+        for close_socket in self.udpservers:
+            self.logger.info("closing a socket in close_program")
+            close_socket.close()
+            self.tcpservers = []
+            self.udpservers = []
+
+        sys.exit(0)
+        return 0
+
+    #############
     #while splunk_is_still_running:
 
 
     #return 0
 
 if __name__ == '__main__':
-   #main()
+    #main()
     print "this is the module. you need to import it"
 
 
