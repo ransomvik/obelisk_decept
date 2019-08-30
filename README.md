@@ -103,7 +103,7 @@ Archive:  obelisk_decept.zip
 ```
 bash-4.2# sh obelisk_decept/bin/obelisk_installer.sh
 Copying file: /opt/obelisk_decept/config/obelisk_decept.service to /lib/systemd/system
-Ô/opt/obelisk_decept/config/obelisk_decept.serviceÕ -> Ô/lib/systemd/system/obelisk_decept.serviceÕ
+â€˜/opt/obelisk_decept/config/obelisk_decept.serviceâ€™ -> â€˜/lib/systemd/system/obelisk_decept.serviceâ€™
 Created symlink from /etc/systemd/system/multi-user.target.wants/obelisk_decept.service to /usr/lib/systemd/system/obelisk_decept.service.
 Checking log file.
 Nov  7 09:09:07 ohon02 systemd: Started Obelisk Decept Service.
@@ -166,7 +166,7 @@ Archive:  obelisk_decept.zip
 ```
 root@honeypot:/opt# /bin/sh /opt/obelisk_decept/bin/obelisk_installer_ubuntu.sh
 Copying file: /opt/obelisk_decept/config/obelisk_decept.conf to /etc/init/
-Ô/opt/obelisk_decept/config/obelisk_decept.confÕ -> Ô/etc/init/obelisk_decept.confÕ
+â€˜/opt/obelisk_decept/config/obelisk_decept.confâ€™ -> â€˜/etc/init/obelisk_decept.confâ€™
 obelisk_decept start/running, process 2724
 
 2017-11-08 18:47:12,381 - decept - INFO - TCP Connection #2 detected: Source: 218.66.104.158:3740 Destination: 64.137.247.35:1433 proto: tcp Severity: medium
@@ -202,3 +202,4 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 ### About Derek Arnold
 Derek Arnold has spent the last 13 years securing large retail, medical device, and insurance companies. He has worked on large, diverse enterprises in the Fortune 500. His key specialties include security operations, threat intelligence, physical security and SIEM. He helps organizations solve their unique security challenges using Splunk Enterprise, security orchestration and automation, and security operations.
+

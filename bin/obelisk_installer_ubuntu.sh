@@ -10,6 +10,7 @@ chmod 755 /opt/obelisk_decept/odlauncher.py
 initctl reload-configuration
 sleep 5 
 service obelisk_decept start
+sleep 5
 tail -n 50 /var/log/upstart/obelisk_decept.log
 sleep 3
 service obelisk_decept status

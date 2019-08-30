@@ -6,7 +6,7 @@
 ##
 ##          Language:       Python
 ##
-##          Version:        1.41
+##          Version:        1.42
 ##
 ##          Original Date:  07-24-2016
 ##
@@ -18,7 +18,7 @@
 ##
 ##          Syntax:         python ./obelisk_decept.py
 ##
-##          Copyright (C):  2016 Derek Arnold (ransomvik)
+##          Copyright (C):  2018 Derek Arnold (ransomvik)
 ##
 ##          License:        This program is free software: you can redistribute it and/or modify
 ##                          it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
 ##                          02-06-2017 DPA      Added a udp handler
 ##                          02-18-2017 DPA      Added an SSH/telnet username and password collector
 ##                          02-22-2017 DPA      Added CEF Logging as an option
-##                          11-29-2017 DPA      Changed to Linux daemon
+##                          06-21-2018 DPA      Re-branded, added pendulum
 ##
 ##########################################################################################################################
 
@@ -53,12 +53,6 @@ import os
 from logging.handlers import RotatingFileHandler
 
 class DeceptSystem:
-
-    AUTHOR = 'Derek Arnold'
-    VERSION = '1.40'
-    ORGANIZATION = 'Obelisk Security'
-    PROGRAM_NAME = 'Obelisk Decept'
-    YEAR = '2018'
 
     enable_cef_logging = False
 
@@ -86,7 +80,6 @@ class DeceptSystem:
     this_decept_system_ip_address = str(socket.gethostbyname(socket.gethostname()))
 
 
-    #def __init__(self, num_tcp_connections=0, num_udp_connections=0,mylogdir=log_path, mytcp_port_list=tcp_port_list,myudp_port_list=udp_port_list,done=False, my_decept_system_ip_address=this_decept_system_ip_address,num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,num_bad_udp_binds = 0,dest_portnum = '0',tcpservers=tcpservers,udpservers=udpservers):
     def __init__(self, num_tcp_connections=0, num_udp_connections=0,mylogdir=log_path, mytcp_port_list=tcp_port_list,myudp_port_list=udp_port_list,done=False, my_decept_system_ip_address=this_decept_system_ip_address,num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,num_bad_udp_binds = 0,dest_portnum = '0'):
         self.num_tcp_connections = num_tcp_connections
         self.num_udp_connections = num_udp_connections
@@ -100,8 +93,6 @@ class DeceptSystem:
 	self.num_bad_tcp_binds=num_bad_tcp_binds
 	self.num_bad_udp_binds=num_bad_udp_binds
 	self.dest_portnum=dest_portnum
-	#self.tcpservers=tcpservers
-	#self.udpservers=udpservers
         self.tcpservers = []
         self.udpservers = []
 	print "in init()"
@@ -110,7 +101,6 @@ class DeceptSystem:
 
     def parse_tcp_connection(self,addr,conn):
 
-                        #global num_tcp_connections
         self.num_tcp_connections += 1
 
         src_ip = "0.0.0.0"
@@ -256,11 +246,60 @@ class DeceptSystem:
 
 	return 0
 
+    def pendulum(self):
+        #print "in pendulum"
+        t = threading.Timer(300.0, self.pendulum)
+        t.start()
+
+        self.logger.info("Obelisk Decept System is running.")
+        return 0
+
+    def __del___(self):
+
+        self.logger.warn('Program is shutting down NOW!')
+        for close_socket in self.tcpservers:
+
+            self.logger.info("closing a socket in close_program")
+
+            close_socket.close()
+
+        for close_socket in self.udpservers:
+            self.logger.info("closing a socket in close_program")
+
+            close_socket.close()
+
+            self.tcpservers = []
+            self.udpservers = []
+
+        sys.exit(0)
+        return 0
+
+    def closeprog(self):
+
+        self.logger.warn('Program is shutting down NOW!')
+        for close_socket in self.tcpservers:
+
+            self.logger.info("closing a socket in close_program")
+
+            close_socket.close()
+
+        for close_socket in self.udpservers:
+            self.logger.info("closing a socket in close_program")
+
+            close_socket.close()
+
+            self.tcpservers = []
+            self.udpservers = []
+
+        sys.exit(0)
+        return 0
+
+
     def run(self):
 
         print "in run()"
         AUTHOR = 'Derek Arnold'
-        VERSION = '1.41'
+        VERSION = '1.42'
         ORGANIZATION = 'Obelisk Security'
         PROGRAM_NAME = 'Obelisk Decept'
         YEAR = '2018'
@@ -288,8 +327,9 @@ class DeceptSystem:
 
     	self.logger.info("Binding to ports in 30 seconds.")
     	self.logger.info("This decept system IP address is: " + self.my_decept_system_ip_address + ".")
-    	time.sleep(30)
-
+    	#time.sleep(30)
+        self.pendulum()
+        time.sleep(30)
 
 	for port in self.mytcp_port_list:
 	    time.sleep(1)
@@ -378,55 +418,6 @@ class DeceptSystem:
 
         return 0
 
-
-		#Closes this program
-def __del___(self):
-			#global tcpservers
-			#global udpservers
-
-    self.logger.warn('Program is shutting down NOW!')
-    for close_socket in self.tcpservers:
-
-	self.logger.info("closing a socket in close_program")
-
-	close_socket.close()
-
-    for close_socket in self.udpservers:
-	self.logger.info("closing a socket in close_program")
-
-    	close_socket.close()
-
-	self.tcpservers = []
-	self.udpservers = []
-
-    sys.exit(0)
-    return 0
-
-def closeprog(self):
-
-    self.logger.warn('Program is shutting down NOW!')
-    for close_socket in self.tcpservers:
-
-        self.logger.info("closing a socket in close_program")
-
-        close_socket.close()
-
-    for close_socket in self.udpservers:
-        self.logger.info("closing a socket in close_program")
-
-        close_socket.close()
-
-        self.tcpservers = []
-        self.udpservers = []
-
-    sys.exit(0)
-    return 0
-
-#############
-    #while splunk_is_still_running:
-
-
-    #return 0
 
 if __name__ == '__main__':
    #main()

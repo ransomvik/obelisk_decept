@@ -8,17 +8,8 @@ import socket
 import logging
 from decept import DeceptSystem
 
-#from daemon import Daemon
-
-
 if __name__ == '__main__':
     start_here = "start_here"
-
-    AUTHOR = 'Derek Arnold'
-    VERSION = '1.41'
-    ORGANIZATION = 'Obelisk Security'
-    PROGRAM_NAME = 'Obelisk Decept'
-    YEAR = '2018'
 
     enable_cef_logging = False
 
@@ -26,11 +17,6 @@ if __name__ == '__main__':
     log_name = 'obelisk_decept.log'
     #log_path = os.path.join(decept_home, 'logs', log_name)
     log_path = decept_home + '/' + log_name
-
-    #pid_file = '/opt/obelisk_decept/decept.pid'
-
-
-
 
     tcp_port_list = [20,21,22,23,25,
                  53,69,80,110,118,
@@ -52,10 +38,6 @@ if __name__ == '__main__':
 
     try:
         print "starting"
-     #   ods = DeceptSystem.DeceptSystem(num_tcp_connections=0, num_udp_connections=0,
-#				 done=False,
-#				 num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,
-#				 num_bad_udp_binds = 0,dest_portnum = '0')
         ods = DeceptSystem.DeceptSystem(num_tcp_connections=0, num_udp_connections=0,mylogdir=log_path, mytcp_port_list=tcp_port_list,myudp_port_list=udp_port_list,done=False, my_decept_system_ip_address=this_decept_system_ip_address,num_good_tcp_binds = 0,num_bad_tcp_binds = 0,num_good_udp_binds = 0,num_bad_udp_binds = 0,dest_portnum = '0')
 
         print "done"
